@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Border Radius Slider</title>
+  </head>
+  <body>
+    <form>
+      <div class="mode">
+        <button class="mode__button mode__standard active" type="button">Standard</button><button class="mode__button mode__advanced" type="button">Advanced</button>
+      </div>
+      <label class="radius"
+        >border-radius: <input class="radius__value" name="radius"
+      /></label>
+      <label class="size"
+        >width: <input class="size__value" name="width"/> height:<input
+          class="size__value"
+          name="height"
+      /></label>
+    </form>
+    <div class="box">
+      <div class="slider slider--hor slider--left slider--top">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+      <div class="slider slider--hor slider--right slider--top">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+      <div class="slider slider--hor slider--left slider--bottom">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+      <div class="slider slider--hor slider--right slider--bottom">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+      <div class="slider slider--vert slider--left slider--top">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+      <div class="slider slider--vert slider--right slider--top">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+      <div class="slider slider--vert slider--left slider--bottom">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+      <div class="slider slider--vert slider--right slider--bottom">
+        <div class="slider__track"></div>
+        <button class="slider__thumb"></button>
+      </div>
+    </div>
+    <div class="shapes">
+      <div class="shapes__1"></div>
+      <div class="shapes__2"></div>
+    </div>
+    <script src="./script/main.js" defer></script>
+  </body>
+</html>

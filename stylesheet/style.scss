@@ -6,74 +6,6 @@ html {
   text-align: center;
 }
 
-.mode {
-  margin-top: 20px;
-  display: inline-block;
-  border-radius: 2em;
-  overflow: hidden;
-  box-shadow: 0 0.2em 14px 3px rgba(0, 0, 0, 0.06);
-
-  &__button {
-    background-color: #fff;
-    border: none;
-    margin: 0;
-    padding: 0.8em;
-    font-size: 15px;
-    font-weight: bolder;
-    outline: none;
-    cursor: pointer;
-    transition: background-image 0.2s;
-  }
-
-  &__button.active {
-    background-image: linear-gradient(
-      rgb(223, 175, 152),
-      rgb(230, 176, 106)
-    );
-    color: #fff;
-  }
-
-}
-
-.radius,
-.size {
-  display: block;
-  font-weight: bolder;
-  font-size: 28px;
-  color: #444;
-  margin: 0 auto;
-  text-align: center;
-  white-space: pre-wrap;
-
-  &__value {
-    border: none;
-    border-bottom: 2px solid #eee;
-    color: rgb(172, 112, 85);
-    font-size: 24px;
-    outline: none;
-    font-weight: bolder;
-    text-align: center;
-    background: none;
-  }
-
-  .radius__value {
-    width: 540px;
-  }
-
-  .size__value {
-    width: 200px;
-  }
-}
-
-.radius {
-  margin-top: 30px;
-}
-
-.size {
-  margin-top: 20px;
-  font-size: 24px;
-}
-
 .box {
   position: relative;
   width: 300px;
@@ -91,12 +23,12 @@ html {
   position: absolute;
   --percent: 0;
   --track-width: 2px;
-  --track-border: 2px dotted rgba(0, 0, 0, 0.2);
-  --track-border-color--active: rgb(0, 0, 0);
+  --track-border: 2px dotted rgba(0, 0, 0, 0.4);
   --thumb-size: 12px;
 
   &__track {
-    display: block;
+    position: relative;
+    z-index: -99;
 
     &::before {
       display: block;
@@ -126,7 +58,7 @@ html {
 
   &.active {
     .slider__track::before {
-      border-color: var(--track-border-color--active) !important;
+      border-color: #000 !important;
     }
   }
 }
@@ -169,7 +101,7 @@ html {
 
   .slider__thumb {
     top: calc(1% * var(--percent));
-    margin-left: calc(-1 * var(--thumb-size) + var(--track-width));
+    margin-left: calc(-1 * var(--thumb-size) + var(--track-width) / 2);
     transform: rotate(-90deg);
     transform-origin: 50% 0;
   }
@@ -217,7 +149,7 @@ html {
 @mixin shape {
   position: absolute;
   border-radius: 50%;
-  animation: shape-ani 4s infinite;
+  animation: shape-ani 8s infinite;
 }
 
 .shapes {
@@ -250,15 +182,18 @@ html {
 
 @keyframes shape-ani {
   0% {
+    transform: scale(0.7);
     box-shadow: 0 0 0 10rem rgb(250, 240, 238), 0 0 0 20rem rgb(248, 229, 222),
-    0 0 0 30rem rgb(245, 215, 204);
+      0 0 0 30rem rgb(245, 215, 204);
   }
   50% {
+    transform: scale(1);
     box-shadow: 0 0 0 10rem rgb(245, 215, 204), 0 0 0 20rem rgb(248, 229, 222),
-    0 0 0 30rem rgb(250, 240, 238);
+      0 0 0 30rem rgb(250, 240, 238);
   }
   100% {
+    transform: scale(0.7);
     box-shadow: 0 0 0 10rem rgb(250, 240, 238), 0 0 0 20rem rgb(248, 229, 222),
-    0 0 0 30rem rgb(245, 215, 204);
+      0 0 0 30rem rgb(245, 215, 204);
   }
 }

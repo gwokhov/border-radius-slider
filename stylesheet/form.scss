@@ -1,0 +1,98 @@
+@mixin button--active {
+  background-image: linear-gradient(rgb(223, 175, 152), rgb(230, 176, 106));
+  color: #fff;
+}
+
+.button-group {
+  display: inline-block;
+  border-radius: 1.2em;
+  overflow: hidden;
+  box-shadow: 0 0.2em 0.8em 0.1em rgba(0, 0, 0, 0.06);
+
+  button {
+    background-color: #fff;
+    border: none;
+    outline: none;
+    padding: 0.6em 1em;
+    font-size: inherit;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  button:focus {
+    text-decoration: underline currentColor;
+  }
+}
+
+.button-group.mode {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.button-group.unit {
+  font-size: 12px;
+  vertical-align: text-bottom;
+}
+
+.button-group.mode__standard {
+  .mode__standard {
+    @include button--active;
+  }
+}
+
+.button-group.mode__advanced {
+  .mode__advanced {
+    @include button--active;
+  }
+}
+
+.button-group.unit__percent {
+  .unit__percent {
+    @include button--active;
+  }
+}
+
+.button-group.unit__pixel {
+  .unit__pixel {
+    @include button--active;
+  }
+}
+
+.radius,
+.size {
+  display: block;
+  font-weight: bolder;
+  color: #444;
+  margin: 0 auto;
+  text-align: center;
+
+  &__value {
+    border: none;
+    border-bottom: 2px solid #eee;
+    color: rgb(172, 112, 85);
+    font-size: 20px;
+    outline: none;
+    font-weight: bolder;
+    text-align: center;
+    background: none;
+  }
+
+  .radius__value {
+    width: 560px;
+  }
+
+  .size__value {
+    width: 160px;
+  }
+}
+
+.radius {
+  margin-top: 30px;
+  font-size: 26px;
+}
+
+.size {
+  margin-top: 20px;
+  font-size: 22px;
+}

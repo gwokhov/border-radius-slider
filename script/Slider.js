@@ -59,9 +59,9 @@ export default class Slider {
       e[clientSuffix] - this.slider.getBoundingClientRect()[position]
     )
 
-    let percent = Math.round(dis / (this.slider[offsetSuffix] / 100))
+    let percent = dis / (this.slider[offsetSuffix] / 100)
     this.slider.style.setProperty('--percent', percent)
-    onMove(this.positionArr, percent + '%')
+    onMove(this.positionArr, percent)
   }
 
   onMouseUp() {

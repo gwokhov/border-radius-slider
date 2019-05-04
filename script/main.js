@@ -1,4 +1,5 @@
-import '../style.scss'
+import '../stylesheet/style.scss'
+import '../stylesheet/form.scss'
 import { horVer, leftRight, topBottom } from './config'
 import Slider from './Slider'
 
@@ -24,11 +25,13 @@ let currentRadius = {
     }
   }
 }
+let currentUnit = 'unit__percent'
 const boxEle = document.getElementsByClassName('box')[0]
 const radiusInputEle = document.getElementsByName('radius')[0]
 const widthInputEle = document.getElementsByName('width')[0]
 const heightInputEle = document.getElementsByName('height')[0]
 const modeButtonGroup = document.getElementsByClassName('mode')[0]
+const unitButtonGroup = document.getElementsByClassName('unit')[0]
 const hor = currentRadius[horVer[0]]
 const vert = currentRadius[horVer[1]]
 
@@ -49,8 +52,23 @@ function registerSlider() {
 
 function setBoxRadius(position, val) {
   let radiusValue
+
   if (arguments.length === 2) {
-    currentRadius[position[0]][position[1]][position[2]] = val
+    let value
+    let widthOrHeight
+
+    if (currentUnit === 'unit__percent') {
+      value = Math.round(val) + '%'
+    } else {
+      widthOrHeight = position[0] === horVer[0] ? 'width' : 'height'
+      value =
+        Math.round(
+          (val / 100) *
+            parseInt(window.getComputedStyle(boxEle, null)[widthOrHeight])
+        ) + 'px'
+    }
+
+    currentRadius[position[0]][position[1]][position[2]] = value
     radiusValue = `${hor.left.top} ${hor.right.top} ${hor.right.bottom} ${
       hor.left.bottom
     } / ${vert.left.top} ${vert.right.top} ${vert.right.bottom} ${
@@ -65,7 +83,7 @@ function setBoxRadius(position, val) {
 }
 
 function initInputEle() {
-  radiusInputEle.value = window.getComputedStyle(boxEle, null).borderRadius
+  radiusInputEle.value = 0
   widthInputEle.value = window.getComputedStyle(boxEle, null).width
   heightInputEle.value = window.getComputedStyle(boxEle, null).height
 
@@ -79,6 +97,15 @@ function initInputEle() {
 
   heightInputEle.addEventListener('input', e => {
     boxEle.style.height = e.currentTarget.value
+  })
+
+  modeButtonGroup.addEventListener('click', e => {
+    modeButtonGroup.className = 'mode button-group ' + e.target.className
+  })
+
+  unitButtonGroup.addEventListener('click', e => {
+    unitButtonGroup.className = 'unit button-group ' + e.target.className
+    currentUnit = e.target.className
   })
 }
 

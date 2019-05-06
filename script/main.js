@@ -1,4 +1,5 @@
 import '../stylesheet/style.scss'
+import '../stylesheet/slider.scss'
 import '../stylesheet/form.scss'
 import { horVer, leftRight, topBottom } from './config'
 import Slider from './Slider'
@@ -26,12 +27,15 @@ let currentRadius = {
   }
 }
 let currentUnit = 'unit__percent'
+let sliders = []
 const boxEle = document.getElementsByClassName('box')[0]
 const radiusInputEle = document.getElementsByName('radius')[0]
 const widthInputEle = document.getElementsByName('width')[0]
 const heightInputEle = document.getElementsByName('height')[0]
-const modeButtonGroup = document.getElementsByClassName('mode')[0]
 const unitButtonGroup = document.getElementsByClassName('unit')[0]
+const limitRangeCheckBox = document.getElementsByClassName(
+  'limit-range-checkbox'
+)[0]
 const hor = currentRadius[horVer[0]]
 const vert = currentRadius[horVer[1]]
 
@@ -45,9 +49,16 @@ function registerSlider() {
           topOrBottom: topBottom[k]
         })
         s.init(setBoxRadius)
+        sliders.push(s)
       }
     }
   }
+}
+
+function setSlidersLimitRange(isLimit) {
+  sliders.forEach(s=>{
+    s.setLimitRange(isLimit)
+  })
 }
 
 function setBoxRadius(position, val) {
@@ -99,13 +110,13 @@ function initInputEle() {
     boxEle.style.height = e.currentTarget.value
   })
 
-  modeButtonGroup.addEventListener('click', e => {
-    modeButtonGroup.className = 'mode button-group ' + e.target.className
-  })
-
   unitButtonGroup.addEventListener('click', e => {
     unitButtonGroup.className = 'unit button-group ' + e.target.className
     currentUnit = e.target.className
+  })
+
+  limitRangeCheckBox.addEventListener('change', e => {
+    setSlidersLimitRange(e.currentTarget.checked)
   })
 }
 

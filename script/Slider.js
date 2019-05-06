@@ -3,6 +3,7 @@ import { selectorPrefix } from './config'
 export default class Slider {
   constructor({ horOrVert, leftOrRight, topOrBottom }) {
     this.isDragging = false
+    this.isLimitRange = true
     this.positionArr = [horOrVert, leftOrRight, topOrBottom]
     this.slider = null
   }
@@ -20,7 +21,7 @@ export default class Slider {
   }
 
   onMouseDown(e) {
-    if(e.target.className !== 'slider__thumb') return
+    if (e.target.className !== 'slider__thumb') return
     let isCurrentSlider = this.positionArr.every(item => {
       return e.target.parentNode.classList.contains(selectorPrefix + item)
     })
@@ -33,6 +34,7 @@ export default class Slider {
     if (!this.isDragging) return
 
     let dis = 0
+    let percent = 0
     let offsetSuffix
     let clientSuffix
     let position
@@ -58,8 +60,12 @@ export default class Slider {
     dis = Math.abs(
       e[clientSuffix] - this.slider.getBoundingClientRect()[position]
     )
-
-    let percent = dis / (this.slider[offsetSuffix] / 100)
+    if (dis >= 0) {
+      percent = dis / (this.slider[offsetSuffix] / 100)
+    } else {
+      percent = 0
+    }
+    if (percent >= 100 && this.isLimitRange) percent = 100
     this.slider.style.setProperty('--percent', percent)
     onMove(this.positionArr, percent)
   }
@@ -69,7 +75,7 @@ export default class Slider {
     this.slider.classList.remove('active')
   }
 
-  updateSlider() {
-    window.getComputedStyle(box, null).borderR
+  setLimitRange(isLimit) {
+    this.isLimitRange = isLimit
   }
 }

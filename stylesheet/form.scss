@@ -63,7 +63,7 @@
 .size {
   display: block;
   font-weight: bolder;
-  color: #444;
+  color: #555;
   margin: 0 auto;
   text-align: center;
 
@@ -95,4 +95,64 @@
 .size {
   margin-top: 20px;
   font-size: 22px;
+}
+
+.options {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.limit-range-checkbox {
+  width: 0;
+  height: 0;
+}
+
+.limit-range-label {
+  cursor: pointer;
+  position: relative;
+  margin-right: 1em;
+  padding-left: 1em;
+  color: #555;
+  vertical-align: 0.2em;
+
+  &::before {
+    position: absolute;
+    content: '';
+    right: 100%;
+    top: 0.24em;
+    border-radius: 0.5em;
+    width: 2em;
+    height: 1em;
+    background-image: linear-gradient(#c5c5c5, #c0c0c0);    
+    transition: all 0.8s;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0.08em;
+    right: calc(100% + 2em - 0.65em);
+    content: '';
+    border-radius: 50%;
+    width: 1.3em;
+    height: 1.3em;
+    background-color: #fff;
+    box-shadow: 0 0.2em 0.4em 0.1em rgba(0, 0, 0, 0.06);
+    transition: all 0.26s;
+  }
+}
+
+.limit-range-checkbox:focus  + .limit-range-label{
+  text-decoration: underline currentColor;
+}
+
+.limit-range-checkbox:checked + .limit-range-label {
+
+  &::before {
+    background-image: linear-gradient(rgb(223, 175, 152), rgb(230, 176, 106));
+  }
+
+  &::after {
+    transform: translateX(2em);
+  }
+
 }

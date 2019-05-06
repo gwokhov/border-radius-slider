@@ -1,0 +1,131 @@
+.slider {
+  position: absolute;
+  --percent: 0;
+  --track-width: 2px;
+  --track-border: 2px dotted rgba(0, 0, 0, 0.2);
+  --thumb-size: 14px;
+
+  &__track {
+    position: relative;
+    z-index: -99;
+
+    &::before {
+      display: block;
+      box-sizing: border-box;
+      content: '';
+    }
+  }
+
+  &__thumb {
+    position: absolute;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    z-index: 99;
+  }
+
+  &.active {
+    .slider__track::before {
+      border-color: #000 !important;
+    }
+  }
+}
+
+.slider__thumb {
+  width: 0;
+  height: 0;
+  border: transparent solid var(--thumb-size);
+  border-top: none;
+  border-bottom-color: #ddd;
+  border-radius: 100%;
+  background-color: transparent;
+  transition: border-bottom-color 0.4s;
+
+  &:focus {
+    border-bottom-color: #666;
+  }
+}
+
+/* Slider水平或垂直 */
+
+.slider--hor {
+  width: 100%;
+
+  .slider__track {
+    width: 100%;
+    height: var(--track-width);
+
+    &::before {
+      z-index: -1;
+      box-sizing: border-box;
+      width: calc(1% * var(--percent));
+      height: 100%;
+    }
+  }
+
+  .slider__thumb {
+    left: calc(1% * var(--percent));
+    margin-left: calc(-1 * var(--thumb-size));
+    margin-top: calc(-1 * var(--track-width) / 2);
+  }
+}
+
+.slider--vert {
+  height: 100%;
+
+  .slider__track {
+    width: var(--track-width);
+    height: 100%;
+
+    &::before {
+      width: 100%;
+      height: calc(1% * var(--percent));
+    }
+  }
+
+  .slider__thumb {
+    top: calc(1% * var(--percent));
+    margin-left: calc(-1 * var(--thumb-size));
+    transform: rotate(-90deg);
+    transform-origin: 50% 0;
+  }
+}
+
+/* Slider位置 */
+
+.slider--left.slider--vert {
+  left: calc(-1 * var(--track-width) / 2);
+
+  .slider__track::before {
+    border-left: var(--track-border);
+  }
+}
+
+.slider--right.slider--vert {
+  right: calc(-1 * var(--track-width) / 2);
+
+  .slider__track::before {
+    border-right: var(--track-border);
+  }
+}
+
+.slider--top.slider--hor {
+  top: calc(-1 * var(--track-width) / 2);
+
+  .slider__track::before {
+    border-top: var(--track-border);
+  }
+}
+
+.slider--bottom.slider--hor {
+  bottom: calc(-1 * var(--track-width) / 2);
+
+  .slider__track::before {
+    border-bottom: var(--track-border);
+  }
+}
+
+.slider--hor.slider--right,
+.slider--bottom.slider--vert {
+  transform: rotate(180deg);
+}

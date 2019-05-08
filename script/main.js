@@ -120,5 +120,7 @@ function initInputEle() {
   })
 }
 
-registerSlider()
-initInputEle()
+window.addEventListener('load', ()=>{
+  registerSlider()
+  initInputEle()
+})

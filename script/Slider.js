@@ -8,19 +8,30 @@ export default class Slider {
     this.slider = null
   }
 
-  init(onMove) {
+  init(moveCallback) {
     const selector = `.slider.${selectorPrefix}${
       this.positionArr[0]
     }.${selectorPrefix}${this.positionArr[1]}.${selectorPrefix}${
       this.positionArr[2]
     }`
     this.slider = document.querySelector(selector)
-    document.addEventListener('mousedown', this.onMouseDown.bind(this))
-    document.addEventListener('mousemove', this.onMouseMove.bind(this, onMove))
-    document.addEventListener('mouseup', this.onMouseUp.bind(this))
+    document.addEventListener('mousedown', this.onDown.bind(this))
+    document.addEventListener('mousemove', this.onMove.bind(this, moveCallback))
+    document.addEventListener('mouseup', this.onUp.bind(this))
+
+    if (
+      'ontouchstart' in document &&
+      'ontouchmove' in document &&
+      'ontouchend' in document
+    ) {
+      document.addEventListener('touchstart', this.onDown.bind(this))
+      document.addEventListener('touchmove', this.onMove.bind(this, moveCallback))
+      document.addEventListener('touchend', this.onUp.bind(this))
+    }
   }
 
-  onMouseDown(e) {
+  onDown(e) {
+    console.log('onDown')
     if (e.target.className !== 'slider__thumb') return
     let isCurrentSlider = this.positionArr.every(item => {
       return e.target.parentNode.classList.contains(selectorPrefix + item)
@@ -30,7 +41,8 @@ export default class Slider {
     this.isDragging = true
   }
 
-  onMouseMove(onMove, e) {
+  onMove(moveCallback, e) {
+    console.log('onMove')
     if (!this.isDragging) return
 
     let dis = 0
@@ -57,9 +69,9 @@ export default class Slider {
       }
     }
 
-    dis = Math.abs(
-      e[clientSuffix] - this.slider.getBoundingClientRect()[position]
-    )
+    let clientAxis = e[clientSuffix] || e.touches[0][clientSuffix]
+
+    dis = Math.abs(clientAxis - this.slider.getBoundingClientRect()[position])
     if (dis >= 0) {
       percent = dis / (this.slider[offsetSuffix] / 100)
     } else {
@@ -67,10 +79,11 @@ export default class Slider {
     }
     if (percent >= 100 && this.isLimitRange) percent = 100
     this.slider.style.setProperty('--percent', percent)
-    onMove(this.positionArr, percent)
+    moveCallback(this.positionArr, percent)
   }
 
-  onMouseUp() {
+  onUp() {
+    console.log('onUp')
     this.isDragging = false
     this.slider.classList.remove('active')
   }

@@ -56,7 +56,7 @@ function registerSlider() {
 }
 
 function setSlidersLimitRange(isLimit) {
-  sliders.forEach(s=>{
+  sliders.forEach(s => {
     s.setLimitRange(isLimit)
   })
 }
@@ -120,7 +120,7 @@ function initInputEle() {
   })
 }
 
-window.addEventListener('load', ()=>{
+window.addEventListener('load', () => {
   registerSlider()
   initInputEle()
 })

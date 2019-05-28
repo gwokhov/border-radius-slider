@@ -25,7 +25,10 @@ export default class Slider {
       'ontouchend' in document
     ) {
       document.addEventListener('touchstart', this.onDown.bind(this))
-      document.addEventListener('touchmove', this.onMove.bind(this, moveCallback))
+      document.addEventListener(
+        'touchmove',
+        this.onMove.bind(this, moveCallback)
+      )
       document.addEventListener('touchend', this.onUp.bind(this))
     }
   }
